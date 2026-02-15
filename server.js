@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
+const marketRoutes = require("./routes/market");
+const gameRoutes = require("./routes/game");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,13 +26,26 @@ app.get("/", (_req, res) => {
       login: "POST /api/auth/login",
       teams: "GET /api/auth/teams",
       updateTeam: "PUT /api/auth/teams/:id",
-      health: "GET /api/health"
+      health: "GET /api/health",
+      marketData: "GET /api/market/data",
+      nextNews: "POST /api/market/next-news",
+      buyItem: "POST /api/market/buy",
+      sellItem: "POST /api/market/sell",
+      portfolio: "GET /api/market/portfolio",
+      resetMarket: "POST /api/market/reset",
+      wordGame: "POST /api/game/word",
+      patternGame: "POST /api/game/pattern",
+      mazeGame: "POST /api/game/maze",
+      gameAttempts: "GET /api/game/attempts",
+      gameHistory: "GET /api/game/history"
     }
   });
 });
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/market", marketRoutes);
+app.use("/api/game", gameRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {
